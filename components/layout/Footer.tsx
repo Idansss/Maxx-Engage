@@ -1,21 +1,11 @@
 "use client";
 import Link from "next/link";
-import Image from "next/image";
-import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
 import { Mail } from "lucide-react";
+import { Logo } from "@/components/shared/Logo";
 import { GithubIcon, LinkedinIcon, XTwitterIcon } from "@/components/shared/SocialIcons";
 import { ThemeToggle } from "./ThemeToggle";
 
 export function Footer() {
-  const [mounted, setMounted] = useState(false);
-  const { theme } = useTheme();
-  useEffect(() => setMounted(true), []);
-
-  const isLight = mounted && theme === "light";
-  const logoSrc = isLight ? "/logos/maxx-engage-light.png" : "/logos/maxx-engage-dark.png";
-  const logoBlend = isLight ? "mix-blend-multiply" : "mix-blend-screen";
-
   return (
     <footer className="relative border-t border-[var(--border-subtle)] bg-[var(--bg-secondary)]">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
@@ -29,8 +19,8 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {/* Brand column */}
           <div className="lg:col-span-1">
-            <div className="relative mb-4 h-8 w-36">
-              <Image src={logoSrc} alt="Maxx Engage" fill className={`object-contain object-left ${logoBlend}`} sizes="144px" />
+            <div className="mb-4">
+              <Logo width={120} height={34} />
             </div>
             <p className="text-sm leading-relaxed text-[var(--text-secondary)]">
               We build the web. We fix the web. We engineer what&apos;s next.

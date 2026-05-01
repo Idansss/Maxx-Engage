@@ -1,13 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
-import { useTheme } from "next-themes";
 import { ThemeToggle } from "./ThemeToggle";
 import { MobileNav } from "./MobileNav";
 import { MagneticButton } from "@/components/effects/MagneticButton";
+import { Logo } from "@/components/shared/Logo";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
@@ -20,21 +19,13 @@ const navLinks = [
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
-  const { theme } = useTheme();
-
-  useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  const isLight = mounted && theme === "light";
-  const logoSrc = isLight ? "/logos/maxx-engage-light.png" : "/logos/maxx-engage-dark.png";
-  const logoBlend = isLight ? "mix-blend-multiply" : "mix-blend-screen";
 
   return (
     <header
@@ -58,18 +49,7 @@ export function Header() {
         className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"
       >
         {/* Logo */}
-        <Link href="/" aria-label="Maxx Engage — home" className="relative z-10 flex items-center">
-          <div className="relative h-8 w-36">
-            <Image
-              src={logoSrc}
-              alt="Maxx Engage"
-              fill
-              className={`object-contain object-left ${logoBlend}`}
-              priority
-              sizes="144px"
-            />
-          </div>
-        </Link>
+        <Logo priority width={140} height={40} />
 
         {/* Desktop nav */}
         <ul className="hidden items-center gap-1 md:flex" role="list">
@@ -100,14 +80,16 @@ export function Header() {
         {/* Right side */}
         <div className="flex items-center gap-3">
           <ThemeToggle className="hidden md:flex" />
-          <MagneticButton className="hidden md:block">
-            <Link
-              href="/contact"
-              className="inline-flex h-9 items-center justify-center rounded-lg bg-[#A020F0] px-5 text-sm font-semibold text-white transition-colors hover:bg-[#B83AFF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A020F0]"
-            >
-              Start a project
-            </Link>
-          </MagneticButton>
+          <div className="hidden md:block">
+            <MagneticButton as="div">
+              <Link
+                href="/contact"
+                className="inline-flex h-9 items-center justify-center rounded-lg bg-[#A020F0] px-5 text-sm font-semibold text-white transition-colors hover:bg-[#B83AFF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A020F0]"
+              >
+                Start a project
+              </Link>
+            </MagneticButton>
+          </div>
           <MobileNav />
         </div>
       </nav>

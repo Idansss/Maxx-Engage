@@ -38,6 +38,7 @@
 /* ─── Dark mode (default) ─────────────────────────────────────────────────── */
 :root {
   color-scheme: dark;
+  --brand-purple:     #A020F0;
   --bg-primary:       #0A0A0B;
   --bg-secondary:     #111114;
   --bg-tertiary:      #1A1A1F;
@@ -219,11 +220,10 @@ body {
 }
 
 /* ─── Custom cursor ──────────────────────────────────────────────────────── */
-@media (pointer: fine) {
-  html.cursor-active { cursor: none; }
-  html.cursor-active a,
-  html.cursor-active button,
-  html.cursor-active [role="button"] { cursor: none; }
+@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  body, body * {
+    cursor: none !important;
+  }
 }
 
 /* ─── Print ───────────────────────────────────────────────────────────────── */

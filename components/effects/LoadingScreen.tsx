@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
+import { Logo } from "@/components/shared/Logo";
 
 export function LoadingScreen() {
   const [visible, setVisible] = useState(true);
@@ -33,15 +33,8 @@ export function LoadingScreen() {
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1, transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] } }}
-            className="relative h-20 w-48"
           >
-            <Image
-              src="/logos/maxx-engage-dark.png"
-              alt="Maxx Engage"
-              fill
-              className="object-contain"
-              priority
-            />
+            <Logo href="" forceVariant="dark" width={220} height={64} priority />
           </motion.div>
           <motion.p
             initial={{ opacity: 0, y: 8 }}
