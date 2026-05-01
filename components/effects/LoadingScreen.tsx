@@ -34,7 +34,7 @@ export function LoadingScreen() {
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1, transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] } }}
           >
-            <Logo href="" forceVariant="dark" width={220} height={64} priority />
+            <Logo href="" forceVariant="dark" width={180} height={113} priority />
           </motion.div>
           <motion.p
             initial={{ opacity: 0, y: 8 }}

@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Mail } from "lucide-react";
-import { GithubIcon, LinkedinIcon, XTwitterIcon, GlobeIcon } from "@/components/shared/SocialIcons";
+import { GithubIcon, LinkedinIcon, GlobeIcon } from "@/components/shared/SocialIcons";
 import type { TeamMember } from "@/lib/data/team";
 
 interface TeamCardProps {
@@ -64,11 +64,6 @@ export function TeamCard({ member, index }: TeamCardProps) {
         {member.socials.github && (
           <a href={member.socials.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="text-[var(--text-muted)] transition-colors hover:text-[#A020F0]">
             <GithubIcon className="h-4 w-4" />
-          </a>
-        )}
-        {member.socials.twitter && (
-          <a href={member.socials.twitter} target="_blank" rel="noopener noreferrer" aria-label="X / Twitter" className="text-[var(--text-muted)] transition-colors hover:text-[#A020F0]">
-            <XTwitterIcon className="h-4 w-4" />
           </a>
         )}
         {member.socials.linkedin && (

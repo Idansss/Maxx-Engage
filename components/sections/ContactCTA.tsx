@@ -37,14 +37,14 @@ export function ContactCTA() {
             <MagneticButton>
               <Link
                 href="/contact"
-                className="inline-flex h-14 items-center justify-center rounded-xl bg-white px-10 text-base font-semibold text-black transition-all hover:bg-[var(--brand-purple-soft)] hover:text-[#A020F0] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                className="inline-flex h-14 items-center justify-center rounded-xl bg-[#A020F0] px-10 text-base font-semibold text-white transition-colors hover:bg-[#B83AFF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A020F0]"
               >
                 Start a project
               </Link>
             </MagneticButton>
             <a
               href="mailto:abassibrahim591@gmail.com"
-              className="inline-flex h-14 items-center justify-center gap-2 rounded-xl border border-white/20 px-8 text-base font-medium text-white/80 transition-all hover:border-white/40 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+              className="inline-flex h-14 items-center justify-center gap-2 rounded-xl border border-[var(--border-strong)] px-8 text-base font-medium text-[var(--text-primary)] transition-all hover:border-[#A020F0] hover:text-[#A020F0] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A020F0]"
             >
               <Mail className="h-4 w-4" /> Email us directly
             </a>

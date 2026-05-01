@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Mail } from "lucide-react";
-import { GithubIcon, LinkedinIcon, XTwitterIcon, GlobeIcon } from "@/components/shared/SocialIcons";
+import { GithubIcon, LinkedinIcon, GlobeIcon } from "@/components/shared/SocialIcons";
 import { team } from "@/lib/data/team";
 
 interface Props {
@@ -30,7 +30,6 @@ export default async function TeamMemberPage({ params }: Props) {
 
   const socialLinks = [
     { href: member.socials.github, icon: GithubIcon, label: "GitHub" },
-    { href: member.socials.twitter, icon: XTwitterIcon, label: "X / Twitter" },
     { href: member.socials.linkedin, icon: LinkedinIcon, label: "LinkedIn" },
     { href: member.socials.portfolio, icon: GlobeIcon, label: "Portfolio" },
     { href: member.socials.email ? `mailto:${member.socials.email}` : undefined, icon: Mail, label: "Email" },

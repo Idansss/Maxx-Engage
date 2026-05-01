@@ -90,7 +90,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 foundingLocation: { "@type": "Place", name: "Lagos, Nigeria" },
                 sameAs: [
                   "https://github.com/Lingz450",
-                  "https://twitter.com/Ghost912932",
                   "https://linkedin.com/in/abass-ibrahim",
                 ],
                 contactPoint: {

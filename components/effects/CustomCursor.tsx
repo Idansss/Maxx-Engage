@@ -56,36 +56,20 @@ export function CustomCursor() {
   if (!isEnabled) return null;
 
   return (
-    <>
-      {/* Dot — follows cursor with zero delay */}
-      <motion.div
-        className="pointer-events-none fixed top-0 left-0 z-[9999] rounded-full bg-[var(--brand-purple)] mix-blend-difference"
-        style={{
-          x: cursorX,
-          y: cursorY,
-          width: isPointer ? 0 : 8,
-          height: isPointer ? 0 : 8,
-          translateX: "-50%",
-          translateY: "-50%",
-          opacity: isVisible ? 1 : 0,
-          transition: "width 0.2s, height 0.2s, opacity 0.2s",
-        }}
-      />
-      {/* Ring — trails dot with tight spring */}
-      <motion.div
-        className="pointer-events-none fixed top-0 left-0 z-[9999] rounded-full border-2 border-[var(--brand-purple)]"
-        style={{
-          x: ringX,
-          y: ringY,
-          width: isPointer ? 44 : 36,
-          height: isPointer ? 44 : 36,
-          translateX: "-50%",
-          translateY: "-50%",
-          opacity: isVisible ? 1 : 0,
-          backgroundColor: isPointer ? "var(--brand-purple)" : "transparent",
-          transition: "width 0.25s, height 0.25s, background-color 0.25s, opacity 0.2s",
-        }}
-      />
-    </>
+    /* Ring only — no dot. Clean outlined circle that trails the cursor. */
+    <motion.div
+      className="pointer-events-none fixed top-0 left-0 z-[9999] rounded-full border-2 border-[var(--brand-purple)]"
+      style={{
+        x: ringX,
+        y: ringY,
+        width: isPointer ? 44 : 32,
+        height: isPointer ? 44 : 32,
+        translateX: "-50%",
+        translateY: "-50%",
+        opacity: isVisible ? (isPointer ? 0.7 : 0.5) : 0,
+        backgroundColor: "transparent",
+        transition: "width 0.2s, height 0.2s, opacity 0.2s",
+      }}
+    />
   );
 }

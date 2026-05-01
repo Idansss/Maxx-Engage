@@ -2,15 +2,15 @@
 import Link from "next/link";
 import { Mail } from "lucide-react";
 import { Logo } from "@/components/shared/Logo";
-import { GithubIcon, LinkedinIcon, XTwitterIcon } from "@/components/shared/SocialIcons";
+import { GithubIcon, LinkedinIcon } from "@/components/shared/SocialIcons";
 import { ThemeToggle } from "./ThemeToggle";
 
 export function Footer() {
   return (
     <footer className="relative border-t border-[var(--border-subtle)] bg-[var(--bg-secondary)]">
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         {/* Divider */}
-        <div className="mb-12 flex items-center gap-4">
+        <div className="mb-8 flex items-center gap-4">
           <div className="h-px flex-1 bg-[var(--border-subtle)]" />
           <span className="font-mono text-[#A020F0]">✦</span>
           <div className="h-px flex-1 bg-[var(--border-subtle)]" />
@@ -20,7 +20,7 @@ export function Footer() {
           {/* Brand column */}
           <div className="lg:col-span-1">
             <div className="mb-4">
-              <Logo width={120} height={34} />
+              <Logo width={96} height={60} />
             </div>
             <p className="text-sm leading-relaxed text-[var(--text-secondary)]">
               We build the web. We fix the web. We engineer what&apos;s next.
@@ -73,11 +73,6 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <a href="https://twitter.com/Ghost912932" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-[var(--text-secondary)] transition-colors hover:text-[#A020F0]">
-                  <XTwitterIcon className="h-3.5 w-3.5" /> X / Twitter
-                </a>
-              </li>
-              <li>
                 <a href="https://github.com/Lingz450" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-[var(--text-secondary)] transition-colors hover:text-[#A020F0]">
                   <GithubIcon className="h-3.5 w-3.5" /> GitHub
                 </a>
@@ -111,7 +106,7 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-[var(--border-subtle)] pt-8 sm:flex-row">
+        <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-[var(--border-subtle)] pt-6 sm:flex-row">
           <p className="font-mono text-xs text-[var(--text-muted)]">
             © 2026 Maxx Engage.{" "}
             <span className="text-[var(--text-muted)]">Built in Lagos.</span>

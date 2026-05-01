@@ -49,7 +49,7 @@ export function Header() {
         className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"
       >
         {/* Logo */}
-        <Logo priority width={140} height={40} />
+        <Logo priority width={100} height={63} />
 
         {/* Desktop nav */}
         <ul className="hidden items-center gap-1 md:flex" role="list">

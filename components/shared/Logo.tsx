@@ -52,7 +52,9 @@ export function Logo({
       width={width}
       height={height}
       priority={priority}
-      className={`object-contain ${className}`}
+      unoptimized
+      className={`block ${className}`}
+      style={{ width, height }}
     />
   );
 

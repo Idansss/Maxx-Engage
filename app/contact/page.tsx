@@ -1,11 +1,11 @@
 "use client";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useEffect, useRef, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { motion, AnimatePresence } from "framer-motion";
-import { CheckCircle, Copy, Check, Mail } from "lucide-react";
-import { GithubIcon, LinkedinIcon, XTwitterIcon } from "@/components/shared/SocialIcons";
+import { CheckCircle, Copy, Check, Mail, ChevronDown } from "lucide-react";
+import { GithubIcon, LinkedinIcon } from "@/components/shared/SocialIcons";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
@@ -22,6 +22,124 @@ type FormData = z.infer<typeof schema>;
 
 const EMAIL = "abassibrahim591@gmail.com";
 
+const budgetOptions = [
+  { value: "<500", label: "Under $500 (quick fix)" },
+  { value: "500-1500", label: "$500 - $1,500" },
+  { value: "1500-5000", label: "$1,500 - $5,000" },
+  { value: "5000-15000", label: "$5,000 - $15,000" },
+  { value: "15000+", label: "$15,000+" },
+  { value: "retainer", label: "Monthly retainer" },
+];
+
+function BudgetSelect({
+  value,
+  onChange,
+  invalid,
+  describedBy,
+}: {
+  value: string;
+  onChange: (value: string) => void;
+  invalid?: boolean;
+  describedBy?: string;
+}) {
+  const [open, setOpen] = useState(false);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const selected = budgetOptions.find((option) => option.value === value);
+
+  useEffect(() => {
+    const handlePointerDown = (event: PointerEvent) => {
+      if (!rootRef.current?.contains(event.target as Node)) setOpen(false);
+    };
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+
+    document.addEventListener("pointerdown", handlePointerDown);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", handlePointerDown);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
+  const choose = (nextValue: string) => {
+    onChange(nextValue);
+    setOpen(false);
+  };
+
+  return (
+    <div ref={rootRef} className="relative">
+      <button
+        id="budget"
+        type="button"
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-invalid={invalid ? "true" : undefined}
+        aria-describedby={describedBy}
+        onClick={() => setOpen((current) => !current)}
+        onKeyDown={(event) => {
+          if (event.key === "ArrowDown" || event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            setOpen(true);
+          }
+        }}
+        className={`flex h-10 w-full items-center justify-between rounded-lg border bg-[var(--bg-tertiary)] px-3 py-2 text-left text-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#A020F0] ${
+          invalid
+            ? "border-[#EF4444]"
+            : "border-[var(--border-subtle)] focus-visible:border-[#A020F0]"
+        }`}
+      >
+        <span className={selected ? "text-[var(--text-primary)]" : "text-[var(--text-muted)]"}>
+          {selected?.label ?? "Select a range..."}
+        </span>
+        <ChevronDown
+          className={`h-4 w-4 shrink-0 text-[var(--text-muted)] transition-transform ${
+            open ? "rotate-180 text-[#A020F0]" : ""
+          }`}
+          aria-hidden="true"
+        />
+      </button>
+
+      <AnimatePresence>
+        {open && (
+          <motion.ul
+            role="listbox"
+            aria-labelledby="budget"
+            initial={{ opacity: 0, y: -6, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -6, scale: 0.98 }}
+            transition={{ duration: 0.14, ease: [0.25, 0.1, 0.25, 1] }}
+            className="absolute z-50 mt-2 max-h-72 w-full overflow-y-auto rounded-xl border border-[var(--border-subtle)] bg-[var(--surface-elevated)] p-1.5 shadow-2xl shadow-black/30"
+          >
+            {budgetOptions.map((option) => {
+              const isSelected = option.value === value;
+
+              return (
+                <li key={option.value} role="presentation">
+                  <button
+                    type="button"
+                    role="option"
+                    aria-selected={isSelected}
+                    onClick={() => choose(option.value)}
+                    className={`flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-left text-sm transition-colors ${
+                      isSelected
+                        ? "bg-[rgba(160,32,240,0.14)] text-[#A020F0]"
+                        : "text-[var(--text-secondary)] hover:bg-[rgba(160,32,240,0.08)] hover:text-[var(--text-primary)]"
+                    }`}
+                  >
+                    <span>{option.label}</span>
+                    {isSelected && <Check className="h-4 w-4 text-[#A020F0]" aria-hidden="true" />}
+                  </button>
+                </li>
+              );
+            })}
+          </motion.ul>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
 export default function ContactPage() {
   const [copied, setCopied] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -29,6 +147,7 @@ export default function ContactPage() {
 
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
@@ -94,7 +213,6 @@ export default function ContactPage() {
               <div className="flex gap-3">
                 {[
                   { href: "https://github.com/Lingz450", icon: GithubIcon, label: "GitHub" },
-                  { href: "https://twitter.com/Ghost912932", icon: XTwitterIcon, label: "X / Twitter" },
                   { href: "https://linkedin.com/in/abass-ibrahim", icon: LinkedinIcon, label: "LinkedIn" },
                 ].map(({ href, icon: Icon, label }) => (
                   <a
@@ -175,21 +293,20 @@ export default function ContactPage() {
 
                   <div className="space-y-2">
                     <Label htmlFor="budget">Budget range *</Label>
-                    <select
-                      id="budget"
-                      {...register("budget")}
-                      aria-invalid={errors.budget ? "true" : undefined}
-                      className="flex h-10 w-full rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-tertiary)] px-3 py-2 text-sm text-[var(--text-primary)] transition-colors focus-visible:outline-none focus-visible:border-[#A020F0] focus-visible:ring-1 focus-visible:ring-[#A020F0]"
-                    >
-                      <option value="">Select a range…</option>
-                      <option value="<500">Under $500 (quick fix)</option>
-                      <option value="500-1500">$500 – $1,500</option>
-                      <option value="1500-5000">$1,500 – $5,000</option>
-                      <option value="5000-15000">$5,000 – $15,000</option>
-                      <option value="15000+">$15,000+</option>
-                      <option value="retainer">Monthly retainer</option>
-                    </select>
-                    {errors.budget && <p className="text-sm text-[#EF4444]" role="alert">{errors.budget.message}</p>}
+                    <Controller
+                      name="budget"
+                      control={control}
+                      defaultValue=""
+                      render={({ field }) => (
+                        <BudgetSelect
+                          value={field.value}
+                          onChange={field.onChange}
+                          invalid={!!errors.budget}
+                          describedBy={errors.budget ? "budget-error" : undefined}
+                        />
+                      )}
+                    />
+                    {errors.budget && <p id="budget-error" className="text-sm text-[#EF4444]" role="alert">{errors.budget.message}</p>}
                   </div>
 
                   <div className="space-y-2">
