@@ -44,7 +44,14 @@ export const metadata: Metadata = {
     creator: "@Ghost912932",
   },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
-  icons: { icon: "/favicon.ico" },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "256x256", type: "image/x-icon" },
+      { url: "/favicon.png", sizes: "512x512", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/favicon.png",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
