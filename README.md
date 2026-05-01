@@ -1,36 +1,88 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Maxx Engage — Agency Portfolio
 
-## Getting Started
+Production-grade portfolio website for Maxx Engage, a 3-person Lagos-based web development studio.
 
-First, run the development server:
+**Stack:** Next.js 16, TypeScript, Tailwind CSS 4, Framer Motion, Radix UI, next-themes.
+
+## Quick start
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Create a `.env.local` in the project root:
 
-## Learn More
+```env
+# Required for the contact form to send emails (Resend)
+# Get your key at https://resend.com
+RESEND_API_KEY=re_your_key_here
 
-To learn more about Next.js, take a look at the following resources:
+# Production URL — used for sitemap, robots.txt, and OG metadata
+NEXT_PUBLIC_SITE_URL=https://maxxengage.vercel.app
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Without `RESEND_API_KEY`, submissions are logged to the console in development and return success.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deploy to Vercel
 
-## Deploy on Vercel
+1. Push this repo to GitHub
+2. Import in Vercel dashboard
+3. Add `RESEND_API_KEY` and `NEXT_PUBLIC_SITE_URL` to Vercel environment variables
+4. Deploy — Vercel auto-detects Next.js
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Where to add real logos
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Drop files into `public/logos/`:
+
+- `maxx-engage-dark.png` — purple + white (shown on dark mode)
+- `maxx-engage-light.png` — purple + black (shown on light mode)
+
+These paths are already wired into `Header.tsx` and `Footer.tsx`.
+
+## Where to add real project screenshots
+
+1. Add images to `public/projects/[slug]/cover.jpg` (1600×900px, 16:9 ratio)
+2. Add an `image` field to each project in `lib/data/projects.ts`
+3. Replace the gradient placeholder div in `components/shared/ProjectCard.tsx` with `<Image src={project.image} fill alt={...} />`
+
+## Add the OG image
+
+Generate a 1200×630px PNG → `public/og-image.png`. Case study OG images are auto-generated via `/api/og`.
+
+## Routes
+
+| Path | Description |
+| ---- | ----------- |
+| `/` | Homepage — all sections |
+| `/work` | Gallery with URL-persistent filters |
+| `/work/[slug]` | Case study — Thesis Desk, Wearables, Fàdè, etc. |
+| `/services` | Services + pricing |
+| `/team` | Team overview |
+| `/team/[id]` | Individual profile — tunde, olaoluwa, abass |
+| `/contact` | Contact form |
+| `/blog` | Blog index (placeholder) |
+| `/press-kit` | Brand assets (hidden from robots) |
+| `/api/contact` | Form handler with Resend + rate limiting |
+| `/api/og` | Dynamic OG image generator |
+
+## Features implemented
+
+- Custom cursor with spring physics (desktop, `pointer: fine` only)
+- Command palette (⌘K / Ctrl+K)
+- Konami code easter egg (↑↑↓↓←→←→BA → purple confetti)
+- Scroll progress bar
+- Loading screen (first visit per session, `sessionStorage`)
+- Dark/light toggle — dark default, `localStorage` persistent
+- Contact form: Zod validation, rate limiting (1/IP/min), Resend integration
+- Dynamic OG images for case studies (`@vercel/og`)
+- Sitemap + robots.txt
+- JSON-LD Organization schema
+- Fully keyboard navigable + WCAG focus rings
+- `prefers-reduced-motion` respected throughout
+- Print stylesheet
+- Press kit page (`/press-kit`)
