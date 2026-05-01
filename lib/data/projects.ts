@@ -1,6 +1,7 @@
 export interface Project {
   slug: string;
   name: string;
+  image?: string;
   tagline: string;
   category: "web" | "ecomm" | "dashboard" | "design" | "data";
   stack: string[];
@@ -20,6 +21,7 @@ export const projects: Project[] = [
   {
     slug: "the-thesis-desk",
     name: "The Thesis Desk",
+    image: "/projects/the-thesis-desk.png",
     tagline: "Crypto trading command center for a 500+ member community.",
     category: "dashboard",
     stack: ["Next.js", "TypeScript", "Tailwind CSS", "Node.js", "WebSocket", "Web3"],
@@ -40,6 +42,7 @@ export const projects: Project[] = [
   {
     slug: "wearables-atelier",
     name: "Wearables Atelier",
+    image: "/projects/wearables-atelier.png",
     tagline: "Premium Nigerian womenswear e-commerce with editorial design.",
     category: "ecomm",
     stack: ["Next.js", "TypeScript", "Tailwind CSS", "Stripe", "Sanity CMS"],
@@ -60,6 +63,7 @@ export const projects: Project[] = [
   {
     slug: "fade-9thluxe",
     name: "Fàdè — 9thluxe Store",
+    image: "/projects/fade-9thluxe.png",
     tagline: "Luxury perfume e-commerce with editorial-grade dark/light UI.",
     category: "ecomm",
     stack: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "Stripe"],
@@ -80,6 +84,7 @@ export const projects: Project[] = [
   {
     slug: "the-helping-tribe-academy",
     name: "The Helping Tribe Academy",
+    image: "/projects/the-helping-tribe-academy.png",
     tagline: "Multi-role school management platform for Counselling & Psychology.",
     category: "web",
     stack: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "NextAuth.js", "Tailwind CSS"],
@@ -100,6 +105,7 @@ export const projects: Project[] = [
   {
     slug: "aureo",
     name: "Aureo",
+    image: "/projects/aureo.png",
     tagline: "Trust-first hiring marketplace with verified candidate profiles.",
     category: "web",
     stack: ["Next.js", "TypeScript", "Node.js", "PostgreSQL", "Tailwind CSS", "Framer Motion"],

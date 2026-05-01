@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import type { Project } from "@/lib/data/projects";
@@ -39,8 +40,17 @@ export function ProjectCard({ project, index, layout = "grid" }: ProjectCardProp
               className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-[var(--border-subtle)] transition-all duration-500 group-hover:scale-[1.02] group-hover:shadow-[0_20px_60px_rgba(0,0,0,0.5)]"
               style={{ background: `linear-gradient(135deg, ${project.gradientFrom}, ${project.gradientTo})` }}
             >
+              {project.image && (
+                <Image
+                  src={project.image}
+                  alt={`${project.name} preview`}
+                  fill
+                  className="object-cover object-top"
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                />
+              )}
               {/* Overlay with project name */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center p-8">
+              <div className={cn("absolute inset-0 flex flex-col items-center justify-center p-8", project.image && "bg-black/35")}>
                 <p className="font-mono text-xs tracking-widest text-white/40 uppercase mb-3">{project.category}</p>
                 <h3 className="text-center text-2xl font-bold text-white/90">{project.name}</h3>
               </div>
@@ -98,7 +108,16 @@ export function ProjectCard({ project, index, layout = "grid" }: ProjectCardProp
           className="relative aspect-[16/9] overflow-hidden"
           style={{ background: `linear-gradient(135deg, ${project.gradientFrom}, ${project.gradientTo})` }}
         >
-          <div className="absolute inset-0 flex flex-col items-center justify-center p-6">
+          {project.image && (
+            <Image
+              src={project.image}
+              alt={`${project.name} preview`}
+              fill
+              className="object-cover object-top"
+              sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+            />
+          )}
+          <div className={cn("absolute inset-0 flex flex-col items-center justify-center p-6", project.image && "bg-black/35")}>
             <p className="font-mono text-xs tracking-widest text-white/40 uppercase mb-2">{project.category}</p>
             <h3 className="text-center text-xl font-bold text-white/90">{project.name}</h3>
           </div>
