@@ -80,14 +80,14 @@ export function Hero() {
               <motion.span
                 initial={prefersReduced ? false : { opacity: 0, y: 28 }}
                 animate={{ opacity: 1, y: 0, transition: { delay: 0.1, duration: 0.6, ease } }}
-                className="block text-[clamp(2.6rem,4.5vw+0.75rem,4.75rem)] font-extrabold leading-[1.06] tracking-[-0.03em] text-[var(--text-primary)]"
+                className="block text-[2.75rem] font-[760] leading-[1.04] tracking-normal text-[var(--text-primary)] sm:text-[3.75rem] lg:text-[4.5rem]"
               >
                 We build digital
               </motion.span>
               <motion.span
                 initial={prefersReduced ? false : { opacity: 0, y: 28 }}
                 animate={{ opacity: 1, y: 0, transition: { delay: 0.18, duration: 0.6, ease } }}
-                className="block text-[clamp(2.6rem,4.5vw+0.75rem,4.75rem)] font-extrabold leading-[1.06] tracking-[-0.03em] text-[var(--text-primary)]"
+                className="block text-[2.75rem] font-[760] leading-[1.04] tracking-normal text-[var(--text-primary)] sm:text-[3.75rem] lg:text-[4.5rem]"
               >
                 products that{" "}
                 <span className="italic text-[#A020F0] drop-shadow-[0_0_32px_rgba(160,32,240,0.45)]">

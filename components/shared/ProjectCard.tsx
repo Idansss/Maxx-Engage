@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ExternalLink } from "lucide-react";
 import type { Project } from "@/lib/data/projects";
 import { cn } from "@/lib/utils";
 
@@ -83,12 +83,24 @@ export function ProjectCard({ project, index, layout = "grid" }: ProjectCardProp
               </span>
             ))}
           </div>
-          <Link
-            href={`/work/${project.slug}`}
-            className="inline-flex items-center gap-2 font-medium text-[#A020F0] transition-all hover:gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A020F0] rounded"
-          >
-            View case study <ArrowUpRight className="h-4 w-4" />
-          </Link>
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+            <Link
+              href={`/work/${project.slug}`}
+              className="inline-flex items-center gap-2 font-medium text-[#A020F0] transition-all hover:gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A020F0] rounded"
+            >
+              View case study <ArrowUpRight className="h-4 w-4" />
+            </Link>
+            {project.liveUrl && (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 font-medium text-[var(--text-secondary)] underline-offset-4 transition-colors hover:text-[#A020F0] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A020F0] rounded"
+              >
+                Live site <ExternalLink className="h-4 w-4" aria-hidden />
+              </a>
+            )}
+          </div>
         </motion.div>
       </motion.article>
     );
@@ -137,6 +149,18 @@ export function ProjectCard({ project, index, layout = "grid" }: ProjectCardProp
           </div>
         </div>
       </Link>
+      {project.liveUrl && (
+        <div className="border-t border-[var(--border-subtle)] px-5 py-3">
+          <a
+            href={project.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)] transition-colors hover:text-[#A020F0] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A020F0] rounded"
+          >
+            Live site <ExternalLink className="h-3.5 w-3.5 shrink-0" aria-hidden />
+          </a>
+        </div>
+      )}
     </motion.article>
   );
 }

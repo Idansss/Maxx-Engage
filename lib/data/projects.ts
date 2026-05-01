@@ -37,6 +37,7 @@ export const projects: Project[] = [
     gradientTo: "#1A0A3B",
     featured: true,
     order: 1,
+    liveUrl: "https://thethesisdesk.xyz/",
     author: "abass",
   },
   {
@@ -58,6 +59,7 @@ export const projects: Project[] = [
     gradientTo: "#2D1515",
     featured: true,
     order: 2,
+    liveUrl: "https://wearables-atelier.vercel.app/",
     author: "abass",
   },
   {
@@ -79,6 +81,7 @@ export const projects: Project[] = [
     gradientTo: "#1A1A10",
     featured: true,
     order: 3,
+    liveUrl: "https://9thluxe-store-two.vercel.app/",
     author: "abass",
   },
   {
@@ -100,6 +103,7 @@ export const projects: Project[] = [
     gradientTo: "#101A2D",
     featured: true,
     order: 4,
+    liveUrl: "https://helpingtribeacademy.com/",
     author: "abass",
   },
   {
@@ -121,6 +125,7 @@ export const projects: Project[] = [
     gradientTo: "#1A2D10",
     featured: true,
     order: 5,
+    liveUrl: "https://aureeo.netlify.app/",
     author: "abass",
   },
   {

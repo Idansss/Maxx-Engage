@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, ExternalLink } from "lucide-react";
 import { getProjectBySlug, projects } from "@/lib/data/projects";
@@ -68,22 +69,45 @@ export default async function CaseStudyPage({ params }: Props) {
               </span>
             ))}
           </div>
+
+          {project.liveUrl && (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-8 inline-flex items-center gap-2 font-medium text-[#A020F0] transition-colors hover:text-[#B83AFF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A020F0] rounded"
+            >
+              Visit live site <ExternalLink className="h-4 w-4" aria-hidden />
+            </a>
+          )}
         </div>
       </div>
 
-      {/* Mockup placeholder */}
-      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 -mt-4 mb-16">
+      {/* Hero screenshot */}
+      <div className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 -mt-4 mb-16">
         <div
-          className="relative aspect-[16/8] overflow-hidden rounded-2xl border border-[var(--border-subtle)]"
-          style={{ background: `linear-gradient(135deg, ${project.gradientFrom}, ${project.gradientTo})` }}
+          className="relative aspect-[16/8] w-full overflow-hidden rounded-2xl border border-[var(--border-subtle)]"
+          style={
+            project.image
+              ? undefined
+              : { background: `linear-gradient(135deg, ${project.gradientFrom}, ${project.gradientTo})` }
+          }
         >
-          <div className="absolute inset-0 flex flex-col items-center justify-center p-8">
-            <p className="font-mono text-xs tracking-widest text-white/40 uppercase mb-3">
-              {/* TODO: replace with real screenshots */}
-              Screenshot placeholder
-            </p>
-            <p className="text-2xl font-bold text-white/80">{project.name}</p>
-          </div>
+          {project.image ? (
+            <Image
+              src={project.image}
+              alt={`${project.name} — product screenshot`}
+              fill
+              className="object-cover object-top"
+              sizes="(min-width: 1024px) 1024px, 100vw"
+              priority
+            />
+          ) : (
+            <div className="absolute inset-0 flex min-h-[12rem] flex-col items-center justify-center p-8">
+              <p className="mb-3 font-mono text-xs tracking-widest text-white/40 uppercase">Screenshot placeholder</p>
+              <p className="text-2xl font-bold text-white/80">{project.name}</p>
+            </div>
+          )}
         </div>
       </div>
 

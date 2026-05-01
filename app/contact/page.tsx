@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { MagneticButton } from "@/components/effects/MagneticButton";
+import WebsiteQuestionnaire from "@/components/WebsiteQuestionnaire";
 
 const schema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -19,6 +20,7 @@ const schema = z.object({
   message: z.string().min(20, "Message must be at least 20 characters"),
 });
 type FormData = z.infer<typeof schema>;
+type ContactTab = "quick" | "brief";
 
 const EMAIL = "abassibrahim591@gmail.com";
 
@@ -141,6 +143,7 @@ function BudgetSelect({
 }
 
 export default function ContactPage() {
+  const [activeTab, setActiveTab] = useState<ContactTab>("quick");
   const [copied, setCopied] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [serverError, setServerError] = useState("");
@@ -246,10 +249,65 @@ export default function ContactPage() {
 
           {/* Right — form */}
           <div>
+            <div
+              role="tablist"
+              aria-label="Contact options"
+              className="mb-8 flex border-b border-[var(--border-subtle)]"
+            >
+              {[
+                { id: "quick" as const, label: "Quick Message" },
+                { id: "brief" as const, label: "Project Brief" },
+              ].map((tab) => {
+                const active = activeTab === tab.id;
+
+                return (
+                  <button
+                    key={tab.id}
+                    type="button"
+                    role="tab"
+                    aria-selected={active}
+                    aria-controls={`${tab.id}-panel`}
+                    onClick={() => setActiveTab(tab.id)}
+                    className={`relative px-3 pb-3 pt-1 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A020F0] ${
+                      active
+                        ? "text-[var(--text-primary)]"
+                        : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+                    }`}
+                  >
+                    {tab.label}
+                    {active && (
+                      <motion.span
+                        layoutId="contact-tab-indicator"
+                        className="absolute -bottom-px left-3 right-3 h-px bg-[#A020F0]"
+                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                      />
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+
             <AnimatePresence mode="wait">
-              {submitted ? (
+              {activeTab === "brief" ? (
+                <motion.div
+                  key="brief"
+                  id="brief-panel"
+                  role="tabpanel"
+                  aria-label="Project Brief"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.18 }}
+                  className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-elevated)] py-2"
+                >
+                  <WebsiteQuestionnaire />
+                </motion.div>
+              ) : submitted ? (
                 <motion.div
                   key="success"
+                  id="quick-panel"
+                  role="tabpanel"
+                  aria-label="Quick Message"
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   className="flex h-full flex-col items-center justify-center rounded-2xl border border-[rgba(16,185,129,0.3)] bg-[rgba(16,185,129,0.05)] p-12 text-center"
@@ -268,6 +326,8 @@ export default function ContactPage() {
               ) : (
                 <motion.form
                   key="form"
+                  id="quick-panel"
+                  role="tabpanel"
                   onSubmit={handleSubmit(onSubmit)}
                   className="space-y-6"
                   aria-label="Contact form"
@@ -332,7 +392,7 @@ export default function ContactPage() {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full rounded-xl bg-[#A020F0] py-3.5 text-base font-semibold text-white transition-colors hover:bg-[#B83AFF] disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A020F0]"
+                      className="w-full rounded-xl bg-[#A020F0] px-6 py-3.5 text-base font-semibold text-white transition-colors hover:bg-[#B83AFF] disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A020F0]"
                     >
                       {isSubmitting ? "Sending…" : "Send message →"}
                     </button>

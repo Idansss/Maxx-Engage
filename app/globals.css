@@ -23,8 +23,8 @@
   --color-border-subtle:     var(--border-subtle);
   --color-border-strong:     var(--border-strong);
 
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, "JetBrains Mono", monospace;
+  --font-sans: "Geist", "Geist Fallback", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", "Geist Mono Fallback", ui-monospace, "JetBrains Mono", monospace;
 
   /* Radius */
   --radius-sm:  0.375rem;
@@ -72,15 +72,45 @@ html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   height: 100%;
+  font-family: var(--font-geist-sans), var(--font-sans);
+  text-rendering: optimizeLegibility;
 }
 
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  font-family: var(--font-sans);
+  font-family: var(--font-geist-sans), var(--font-sans);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: 0;
   min-height: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-optical-sizing: auto;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  font-synthesis-weight: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  letter-spacing: 0;
+  text-wrap: balance;
+  font-feature-settings: "kern" 1, "liga" 1;
+}
+
+p, li {
+  text-wrap: pretty;
+}
+
+button, input, textarea, select {
+  font: inherit;
+  letter-spacing: 0;
+}
+
+code, kbd, samp, pre,
+.font-mono {
+  font-family: var(--font-geist-mono), var(--font-mono);
+  font-feature-settings: "kern" 1, "tnum" 1;
 }
 
 /* ─── Focus rings ─────────────────────────────────────────────────────────── */
@@ -104,36 +134,50 @@ body {
 
 /* ─── Typography helpers ──────────────────────────────────────────────────── */
 .display-xl {
-  font-size: clamp(3rem, 8vw + 1rem, 7.5rem);
-  font-weight: 900;
-  letter-spacing: -0.04em;
-  line-height: 1.0;
+  font-size: 3.5rem;
+  font-weight: 820;
+  letter-spacing: 0;
+  line-height: 0.98;
 }
 .display-lg {
-  font-size: clamp(2.25rem, 5vw + 0.5rem, 4.5rem);
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  line-height: 1.05;
+  font-size: 2.75rem;
+  font-weight: 760;
+  letter-spacing: 0;
+  line-height: 1.03;
 }
 .heading-2 {
-  font-size: clamp(1.75rem, 3vw + 0.5rem, 3rem);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.15;
+  font-size: 2rem;
+  font-weight: 650;
+  letter-spacing: 0;
+  line-height: 1.14;
 }
 .heading-3 {
-  font-size: clamp(1.25rem, 2vw + 0.25rem, 1.875rem);
+  font-size: 1.375rem;
   font-weight: 600;
-  letter-spacing: -0.015em;
+  letter-spacing: 0;
   line-height: 1.25;
 }
 .eyebrow {
   font-family: var(--font-mono);
   font-size: 0.6875rem;
-  font-weight: 500;
-  letter-spacing: 0.12em;
+  font-weight: 600;
+  letter-spacing: 0;
   text-transform: uppercase;
   color: #A020F0;
+}
+
+@media (min-width: 640px) {
+  .display-xl { font-size: 5rem; }
+  .display-lg { font-size: 3.5rem; }
+  .heading-2 { font-size: 2.5rem; }
+  .heading-3 { font-size: 1.625rem; }
+}
+
+@media (min-width: 1024px) {
+  .display-xl { font-size: 6.75rem; }
+  .display-lg { font-size: 4.25rem; }
+  .heading-2 { font-size: 3rem; }
+  .heading-3 { font-size: 1.875rem; }
 }
 
 /* ─── Animated grid background ───────────────────────────────────────────── */
